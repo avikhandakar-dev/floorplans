@@ -4,7 +4,6 @@ const Project = require("../models/Project");
 const multer = require("multer");
 const path = require("path");
 const sharp = require("sharp");
-const fs = require("fs");
 
 const router = express.Router();
 
@@ -53,7 +52,7 @@ router.delete("/:floorplanName", async (req, res) => {
 //Create a floorplan
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, __basedir + "/uploads/");
+    cb(null, "uploads/");
   },
 
   filename: function (req, file, cb) {
@@ -93,11 +92,7 @@ router.post("/", upload.single("image"), async (req, res) => {
     const createThumb = sharp(req.file.path)
       .resize(100, 100)
       .toFile(
-        __basedir +
-          "/uploads/" +
-          "thumb-" +
-          timestamp +
-          path.extname(req.file.originalname),
+        "uploads/" + "thumb-" + timestamp + path.extname(req.file.originalname),
         (err, resizeImage) => {
           if (err) {
             console.log(err);
@@ -110,11 +105,7 @@ router.post("/", upload.single("image"), async (req, res) => {
     const createLarge = sharp(req.file.path)
       .resize(2000, 2000)
       .toFile(
-        __basedir +
-          "/uploads/" +
-          "large-" +
-          timestamp +
-          path.extname(req.file.originalname),
+        "uploads/" + "large-" + timestamp + path.extname(req.file.originalname),
         (err, resizeImage) => {
           if (err) {
             console.log(err);
