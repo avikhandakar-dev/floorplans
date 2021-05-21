@@ -6,6 +6,8 @@ const cors = require("cors");
 const projectsRoute = require("./routes/projects");
 const floorplansRoute = require("./routes/floorplans");
 
+global.__basedir = __dirname;
+
 const app = express();
 
 //Middleware
