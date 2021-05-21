@@ -21,7 +21,7 @@ app.use("/floorplans", floorplansRoute);
 
 //Routes
 app.get("/", (req, res) => {
-  res.status(200).json({ name: "John Doe" });
+  res.send([1, 2]);
 });
 
 //Daatabase

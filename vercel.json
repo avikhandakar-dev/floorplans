@@ -1,0 +1,7 @@
+{
+    "name": "Backend/API Coding Challenge",
+    "version": 2,
+    "env": {
+      "DB_URL": "mongodb+srv://floorplans:GvqF3@BBpmTa!f9@cluster0.ohjhg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    }
+  }
