@@ -1,27 +1,28 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
 require("dotenv").config();
+const mongoose = require("mongoose");
+const multer = require("multer");
+const cors = require("cors");
+const projectsRoute = require("./routes/projects");
+const floorplansRoute = require("./routes/floorplans");
 
 const app = express();
 
+//Middleware
 app.use(cors());
+app.use("/uploads", express.static(__dirname + "/uploads"));
 app.use(express.json());
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
-
-const projectsRoute = require("./routes/projects");
-const floorplansRoute = require("./routes/floorplans");
-
 app.use("/projects", projectsRoute);
 app.use("/floorplans", floorplansRoute);
 
 //Routes
 app.get("/", (req, res) => {
-  res.send([1, 2]);
+  res.send("Hello there!");
 });
 
 //Daatabase

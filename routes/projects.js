@@ -1,5 +1,6 @@
 const express = require("express");
 const Project = require("../models/Project");
+const Floorplan = require("../models/Floorplan");
 
 const router = express.Router();
 
@@ -20,10 +21,15 @@ router.get("/:projectName", async (req, res) => {
       name: req.params.projectName,
     }).exec();
     if (!project) {
-      res.sendStatus(404);
-    } else {
-      res.status(200).json(project);
+      return res.sendStatus(404);
     }
+    const floorplan = await Floorplan.find({
+      project: req.params.projectName,
+    }).exec();
+
+    return res
+      .status(200)
+      .json({ results: { name: project.name, floorplan: floorplan } });
   } catch (err) {
     res.json({ message: err });
   }
@@ -53,7 +59,7 @@ router.post("/", (req, res) => {
   project
     .save()
     .then((data) => {
-      res.status(200).json({ success: data });
+      res.status(201).json({ success: data });
     })
     .catch((err) => {
       res.json({ error: err });
